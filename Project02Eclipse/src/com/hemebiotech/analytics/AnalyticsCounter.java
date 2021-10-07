@@ -1,8 +1,6 @@
 package com.hemebiotech.analytics;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -47,17 +45,12 @@ public class AnalyticsCounter {
 		
 		ReadSymptomDataFromFile reader = new ReadSymptomDataFromFile("symptoms.txt");
 		AnalyticsCounter compteur = new AnalyticsCounter(reader.GetSymptoms());
+		WriteData outputFile = new WriteData(compteur.Comptage());
 		
-		compteur.Comptage();
+		outputFile.WriteFile();
+		
 		compteur.AfficheOutput();
 		
-		// first get input
-		
-		// next generate output
-		/*FileWriter writer = new FileWriter ("result.out");
-		writer.write("headache: " + headacheCount + "\n");
-		writer.write("rash: " + rashCount + "\n");
-		writer.write("dialated pupils: " + pupilCount + "\n");
-		writer.close();*/
+	
 	}
 }
