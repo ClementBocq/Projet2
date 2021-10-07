@@ -3,42 +3,61 @@ package com.hemebiotech.analytics;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.TreeMap;
 
 public class AnalyticsCounter {
-	private static int headacheCount = 0;	// initialize to 0
-	private static int rashCount = 0;		// initialize to 0
-	private static int pupilCount = 0;		// initialize to 0
 	
-	public static void main(String args[]) throws Exception {
-		// first get input
-		BufferedReader reader = new BufferedReader (new FileReader("symptoms.txt"));
-		String line = reader.readLine();
-
-		int i = 0;	// compteur du nombre de lignes dans le fichier en entrée
-		while (line != null) {
-			i++;	// increment i
-			System.out.println(i + ".symptom from file: " + line);
-			if (line.equals("headache")) {
-				headacheCount++;
-				System.out.println("number of headaches: " + headacheCount);
-			}
-			else if (line.equals("rash")) {
-				rashCount++;
-				System.out.println("number of rash: " + rashCount);
-			}
-			else if (line.contains("dialated pupils")) {
-				pupilCount++;
-				System.out.println("number of dialated pupils: " + pupilCount);
-			}
-
-			line = reader.readLine();	// get another symptom
+	private List<String> data;
+	private HashSet<String> symptoms;
+	private TreeMap<String, Integer> output = new TreeMap<String, Integer>();
+	
+	
+	
+	public AnalyticsCounter(List<String> data) {
+		this.data = data;
+		this.symptoms = new HashSet<String>(data);
+	}
+	
+	
+	//logique métier
+	public TreeMap<String, Integer> Comptage() {
+		
+	/*Utilisation de  de la boucle avancé dans le cours débuter en Java et
+	 * de la méthode frequency qui compte le nombre d'occurence dans une 
+	 * liste
+	 */
+		for(String symptom : this.symptoms) {
+			output.put(symptom, Collections.frequency(data, symptom));
 		}
-		reader.close();
+		
+		return output;
+	}
+	
+	//Aide pour débugger à enlever plus tard
+	public void AfficheOutput( ) {
+		System.out.println(output.toString());
+	}
+	
+	
+
+	public static void main(String args[]) throws Exception {
+		
+		ReadSymptomDataFromFile reader = new ReadSymptomDataFromFile("symptoms.txt");
+		AnalyticsCounter compteur = new AnalyticsCounter(reader.GetSymptoms());
+		
+		compteur.Comptage();
+		compteur.AfficheOutput();
+		
+		// first get input
+		
 		// next generate output
-		FileWriter writer = new FileWriter ("result.out");
+		/*FileWriter writer = new FileWriter ("result.out");
 		writer.write("headache: " + headacheCount + "\n");
 		writer.write("rash: " + rashCount + "\n");
 		writer.write("dialated pupils: " + pupilCount + "\n");
-		writer.close();
+		writer.close();*/
 	}
 }
