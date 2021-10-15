@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class WriteData {
+public class WriteData implements IDataWriter {
 	
 	private BufferedWriter output;
 	private TreeMap<String, Integer> data;
@@ -18,7 +18,7 @@ public class WriteData {
 	}
 	
 	
-	public void WriteFile( ) {
+	public void writeFile( ) {
 		
 		try {
 			
