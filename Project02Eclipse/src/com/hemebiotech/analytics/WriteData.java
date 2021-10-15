@@ -33,6 +33,7 @@ public class WriteData implements IDataWriter {
 		} catch (IOException e) {
 			
 			e.printStackTrace();
+			System.out.println(e);
 		}
 	}
 

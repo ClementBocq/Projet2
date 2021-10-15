@@ -20,6 +20,7 @@ public class ReadSymptomDataFromFile implements ISymptomReader {
 	 */
 	public ReadSymptomDataFromFile (String filepath) {
 		this.filepath = filepath;
+		System.out.println("Lecture du fichier " + this.filepath);
 	}
 	
 	@Override
@@ -30,13 +31,18 @@ public class ReadSymptomDataFromFile implements ISymptomReader {
 			try (BufferedReader reader = new BufferedReader (new FileReader(filepath))){
 				
 				String line = reader.readLine();
+				int i = 0; //Compteur de ligne
 				
 				while (line != null) {
+					i++;
 					result.add(line);
 					line = reader.readLine();
 				}
+				
+				System.out.println("Nombre de ligne dans le fichier : " + i);
 			} catch (IOException e) {
 				e.printStackTrace();
+				System.out.println(e);
 			}
 		}
 		

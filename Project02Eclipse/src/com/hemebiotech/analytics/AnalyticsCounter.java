@@ -27,6 +27,7 @@ public class AnalyticsCounter {
 			output.put(symptom, Collections.frequency(data, symptom));
 		}
 		
+		
 		return output;
 	}
 	
