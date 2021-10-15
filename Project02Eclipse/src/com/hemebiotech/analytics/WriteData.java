@@ -18,18 +18,16 @@ public class WriteData implements IDataWriter {
 	}
 	
 	
-	public void writeFile( ) {
+	public void writeFile() {
 		
-		try {
+		try (BufferedWriter out = new BufferedWriter(new FileWriter("result.out"))) {
 			
-			this.output = new BufferedWriter(new FileWriter("result.out"));
-			
+			this.output = out;
 			for(Map.Entry<String, Integer> donnees : data.entrySet()) {
 				
 				output.write(donnees.getKey() + " : " + donnees.getValue() + "\n");
 			}
 			
-			output.close();
 			
 			
 		} catch (IOException e) {
