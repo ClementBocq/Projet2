@@ -20,13 +20,9 @@ public class AnalyticsCounter {
 	}
 	
 	
-	//logique métier
 	public TreeMap<String, Integer> comptage() {
 		
-	/*Utilisation de  de la boucle avancé dans le cours débuter en Java et
-	 * de la méthode frequency qui compte le nombre d'occurence dans une 
-	 * liste
-	 */
+
 		for(String symptom : this.symptoms) {
 			output.put(symptom, Collections.frequency(data, symptom));
 		}
@@ -34,7 +30,6 @@ public class AnalyticsCounter {
 		return output;
 	}
 	
-	//Aide pour débugger à enlever plus tard
 	public void afficheOutput( ) {
 		System.out.println(output.toString());
 	}
@@ -43,9 +38,9 @@ public class AnalyticsCounter {
 
 	public static void main(String args[]) throws Exception {
 		
-		ReadSymptomDataFromFile reader = new ReadSymptomDataFromFile("symptoms.txt");
+		ISymptomReader reader = new ReadSymptomDataFromFile("symptoms.txt");
 		AnalyticsCounter compteur = new AnalyticsCounter(reader.getSymptoms());
-		WriteData outputFile = new WriteData(compteur.comptage());
+		IDataWriter outputFile = new WriteData(compteur.comptage());
 		
 		outputFile.writeFile();
 		
