@@ -27,19 +27,20 @@ public class ReadSymptomDataFromFile implements ISymptomReader {
 	public List<String> getSymptoms() {
 		ArrayList<String> result = new ArrayList<String>();
 		
+		
 		if (filepath != null) {
 			try (BufferedReader reader = new BufferedReader (new FileReader(filepath))){
 				
 				String line = reader.readLine();
-				int i = 0; //Compteur de ligne
+				int lineCounter = 0;
 				
 				while (line != null) {
-					i++;
+					lineCounter++;
 					result.add(line);
 					line = reader.readLine();
 				}
 				
-				System.out.println("Nombre de ligne dans le fichier : " + i);
+				System.out.println("Nombre de ligne dans le fichier : " + lineCounter);
 			} catch (IOException e) {
 				e.printStackTrace();
 				System.out.println(e);

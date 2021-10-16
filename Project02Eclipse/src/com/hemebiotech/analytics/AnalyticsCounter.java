@@ -6,6 +6,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.TreeMap;
 
+/**
+ * Allow counting of elements in a collection.
+ * @author Z
+ *
+ */
+
 public class AnalyticsCounter {
 	
 	private List<String> data;
@@ -19,7 +25,10 @@ public class AnalyticsCounter {
 		this.symptoms = new HashSet<String>(data);
 	}
 	
-	
+	/**
+	 * 
+	 * @return a TreeMap object which contain a list of symptoms ordered by alphabetical order.
+	 */
 	public TreeMap<String, Integer> comptage() {
 		
 
