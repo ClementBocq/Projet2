@@ -16,28 +16,37 @@ public class AnalyticsCounter {
 	
 	private List<String> data;
 	private HashSet<String> symptoms;
-	private TreeMap<String, Integer> output = new TreeMap<String, Integer>();
+	private TreeMap<String, Integer> output;
 	
 	
 	
-	public AnalyticsCounter(List<String> data) {
-		this.data = data;
-		this.symptoms = new HashSet<String>(data);
+	public AnalyticsCounter(String filepath) {
+		
+		
+		ISymptomReader reader = new ReadSymptomDataFromFile(filepath);
+		this.data = reader.getSymptoms();
+		this.symptoms = new HashSet<String>(this.data);
+		this.output = new TreeMap<String, Integer>();
 	}
 	
 	/**
 	 * 
 	 * @return a TreeMap object which contain a list of symptoms ordered by alphabetical order.
 	 */
-	public TreeMap<String, Integer> comptage() {
+	public void comptage() {
 		
-
 		for(String symptom : this.symptoms) {
 			output.put(symptom, Collections.frequency(data, symptom));
 		}
 		
 		
-		return output;
+		
+	}
+	
+	public void writeInFile() {
+		
+		IDataWriter outputFile = new WriteData(this.output);
+		outputFile.writeFile();
 	}
 	
 	public void afficheOutput( ) {
@@ -45,16 +54,16 @@ public class AnalyticsCounter {
 	}
 	
 	
+	
+	
 
 	public static void main(String args[]) throws Exception {
-		
-		ISymptomReader reader = new ReadSymptomDataFromFile("symptoms.txt");
-		AnalyticsCounter compteur = new AnalyticsCounter(reader.getSymptoms());
-		IDataWriter outputFile = new WriteData(compteur.comptage());
-		
-		outputFile.writeFile();
-		
+				
+		AnalyticsCounter compteur = new AnalyticsCounter("symptoms.txt");
+		compteur.comptage();
+		compteur.writeInFile();
 		compteur.afficheOutput();
+		
 		
 	
 	}

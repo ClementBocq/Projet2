@@ -12,7 +12,7 @@ public class WriteData implements IDataWriter {
 	
 	private TreeMap<String, Integer> data;
 	
-	public WriteData(TreeMap<String, Integer> data) {
+	public WriteData(Map<String, Integer> data) {
 		
 		this.data = new TreeMap<String, Integer>(data);
 		
