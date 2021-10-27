@@ -12,5 +12,10 @@ import java.util.Map;
 
 public interface IDataWriter {
 
+	/**
+	 * Write data of a Collection object in a file.
+	 *  @param data which is a Map object 
+	 */
 	void writeFile(Map<String, Integer> data);
+
 }

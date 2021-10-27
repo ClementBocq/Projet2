@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Simple brute force implementation
+ * This class read data stored in a file and put it in array.
  *
  */
 public class ReadSymptomDataFromFile implements ISymptomReader {
@@ -16,6 +16,7 @@ public class ReadSymptomDataFromFile implements ISymptomReader {
 	
 	
 	/**
+	 * this is the constructor
 	 * 
 	 * @param filepath a full or partial path to file with symptom strings in it, one per line
 	 */

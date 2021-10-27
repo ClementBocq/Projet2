@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.TreeMap;
 
 /**
- * Allow counting of elements in a collection.
+ * Allow counting of elements in a collection by take data from
+ * input object.
  * @author Z
  *
  */
@@ -19,7 +20,11 @@ public class AnalyticsCounter {
 	private TreeMap<String, Integer> output;
 	
 	
-	
+	/**
+	 * Call ReadDataFromFile object and put data in Hash.
+	 * 
+	 * @param filepath full or partial
+	 */
 	public AnalyticsCounter(String filepath) {
 		
 		
@@ -30,8 +35,9 @@ public class AnalyticsCounter {
 	}
 	
 	/**
+	 * put data which contain a list
+	 * of symptoms ordered by alphabetical order.
 	 * 
-	 * @return a TreeMap object which contain a list of symptoms ordered by alphabetical order.
 	 */
 	public void comptage() {
 		
@@ -43,12 +49,18 @@ public class AnalyticsCounter {
 		
 	}
 	
+	/**
+	 * Call WriteData object to create a file with processed data.
+	 */
 	public void writeInFile() {
 		
 		IDataWriter outputFile = new WriteData();
 		outputFile.writeFile(this.output);
 	}
 	
+	/**
+	 * display output content in the console.
+	 */
 	public void afficheOutput( ) {
 		System.out.println(output.toString());
 	}
@@ -56,7 +68,11 @@ public class AnalyticsCounter {
 	
 	
 	
-
+	/**
+	 * main method
+	 * @param args
+	 * @throws Exception
+	 */
 	public static void main(String args[]) throws Exception {
 				
 		AnalyticsCounter compteur = new AnalyticsCounter("symptoms.txt");
@@ -67,7 +83,8 @@ public class AnalyticsCounter {
 	}
 
 	/**
-	 * @param compteur
+	 * Wrapper method of others methods in the class
+	 * @param compteur type of AnalyticsCounter
 	 */
 	public void process(AnalyticsCounter compteur) {
 		compteur.comptage();

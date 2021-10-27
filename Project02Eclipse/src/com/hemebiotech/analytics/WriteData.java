@@ -6,13 +6,23 @@ import java.io.IOException;
 import java.util.Map;
 
 
-
+/**
+ * Write data in a TreeMap and create a file with the TreeMap content
+ * 
+ * @author Z
+ */
 public class WriteData implements IDataWriter {
 	
 	
+	/** 
+	 * this is the constructor.
+	 */
 	public WriteData() {	}
 	
-	
+	/**
+	 * Write data of Map attribute in a file named "result.out".
+	 */
+	@Override
 	public void writeFile(Map<String, Integer> data) {
 		
 		try (BufferedWriter output = new BufferedWriter(new FileWriter("result.out"))) {
