@@ -45,8 +45,8 @@ public class AnalyticsCounter {
 	
 	public void writeInFile() {
 		
-		IDataWriter outputFile = new WriteData(this.output);
-		outputFile.writeFile();
+		IDataWriter outputFile = new WriteData();
+		outputFile.writeFile(this.output);
 	}
 	
 	public void afficheOutput( ) {

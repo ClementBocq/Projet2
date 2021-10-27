@@ -4,22 +4,16 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Map;
-import java.util.TreeMap;
 
 
 
 public class WriteData implements IDataWriter {
 	
-	private TreeMap<String, Integer> data;
 	
-	public WriteData(Map<String, Integer> data) {
-		
-		this.data = new TreeMap<String, Integer>(data);
-		
-	}
+	public WriteData() {	}
 	
 	
-	public void writeFile() {
+	public void writeFile(Map<String, Integer> data) {
 		
 		try (BufferedWriter output = new BufferedWriter(new FileWriter("result.out"))) {
 			
@@ -33,7 +27,6 @@ public class WriteData implements IDataWriter {
 			
 		} catch (IOException e) {
 			
-			e.printStackTrace();
 			System.out.println(e);
 		}
 	}
