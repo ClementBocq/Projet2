@@ -43,7 +43,6 @@ public class ReadSymptomDataFromFile implements ISymptomReader {
 				
 				System.out.println("Nombre de ligne dans le fichier : " + lineCounter);
 			} catch (IOException e) {
-				e.printStackTrace();
 				System.out.println(e);
 			}
 		}

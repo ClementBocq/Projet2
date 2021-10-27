@@ -1,5 +1,7 @@
 package com.hemebiotech.analytics;
 
+import java.util.Map;
+
 /**
  * IDataWriter is an interface that write data in output no matter which format it is.
  * 
@@ -10,5 +12,5 @@ package com.hemebiotech.analytics;
 
 public interface IDataWriter {
 
-	void writeFile();
+	void writeFile(Map<String, Integer> data);
 }

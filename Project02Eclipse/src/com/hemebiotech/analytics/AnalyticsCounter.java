@@ -45,8 +45,8 @@ public class AnalyticsCounter {
 	
 	public void writeInFile() {
 		
-		IDataWriter outputFile = new WriteData(this.output);
-		outputFile.writeFile();
+		IDataWriter outputFile = new WriteData();
+		outputFile.writeFile(this.output);
 	}
 	
 	public void afficheOutput( ) {
@@ -60,11 +60,18 @@ public class AnalyticsCounter {
 	public static void main(String args[]) throws Exception {
 				
 		AnalyticsCounter compteur = new AnalyticsCounter("symptoms.txt");
-		compteur.comptage();
-		compteur.writeInFile();
-		compteur.afficheOutput();
+		compteur.process(compteur);
 		
 		
 	
+	}
+
+	/**
+	 * @param compteur
+	 */
+	public void process(AnalyticsCounter compteur) {
+		compteur.comptage();
+		compteur.writeInFile();
+		compteur.afficheOutput();
 	}
 }
