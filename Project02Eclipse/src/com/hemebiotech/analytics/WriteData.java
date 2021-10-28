@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Map;
+import java.util.TreeMap;
 
 
 /**
@@ -23,7 +24,7 @@ public class WriteData implements IDataWriter {
 	 * Write data of Map attribute in a file named "result.out".
 	 */
 	@Override
-	public void writeFile(Map<String, Integer> data) {
+	public void writeFile(TreeMap<String, Integer> data) {
 		
 		try (BufferedWriter output = new BufferedWriter(new FileWriter("result.out"))) {
 			
