@@ -7,7 +7,7 @@ import java.util.TreeMap;
 
 /**
  * This class count the number of occurences of symptoms in a List
- * and store the result into a TreeMap as a couple key-value.
+ * and store the result into a file called "result.out".
  *
  */
 
@@ -18,9 +18,10 @@ public class AnalyticsCounter {
 	
 	
 	/**
-	 * Call ReadDataFromFile object and put data in Hash.
+	 * This the constructor.
 	 * 
-	 * @param filepath full or partial
+	 * @param reader Contains the filepath and list of symtpoms.
+	 * @param writer IDataWriter object used to create ouput file.
 	 */
 	private AnalyticsCounter(ISymptomReader reader, IDataWriter writer) {
 	
@@ -36,7 +37,7 @@ public class AnalyticsCounter {
 	/**
 	 * put data which contain a list
 	 * of symptoms ordered by alphabetical order.
-	 * 
+	 * @param symptoms type of List<String>.
 	 */
 	private TreeMap<String, Integer> comptage(List<String> symptoms) {
 		
@@ -53,7 +54,7 @@ public class AnalyticsCounter {
 	
 	/**
 	 * Call WriteData object to create a file with processed data.
-	 * @param map 
+	 * @param map TreeMap passed in parameter of attribute writer.
 	 */
 	private void writeInFile(TreeMap<String,Integer> map) {
 		
@@ -62,7 +63,8 @@ public class AnalyticsCounter {
 	}
 	
 	/**
-	 * display output content in the console.
+	 * display output content in the console for log.
+	 * @param map TreeMap to display in the console.
 	 */
 	private void afficheOutput(TreeMap<String, Integer> map) {
 		System.out.println(map.toString());
@@ -72,13 +74,12 @@ public class AnalyticsCounter {
 	
 	
 	/**
-	 * main method
-	 * @param args
-	 * @throws Exception
+	 * main method.
+	 * @param args not used but needed for the main method.
 	 */
-	public static void main(String args[]) throws Exception {
+	public static void main(String args[]) {
 		
-		ReadSymptomDataFromFile reader = new ReadSymptomDataFromFile("symtpoms.txt");
+		ReadSymptomDataFromFile reader = new ReadSymptomDataFromFile("symptoms.txt");
 		WriteData writer = new WriteData();
 		AnalyticsCounter compteur = new AnalyticsCounter(reader, writer);
 		compteur.process(compteur);
@@ -88,12 +89,11 @@ public class AnalyticsCounter {
 	}
 
 	/**
-	 * Wrapper method of others methods in the class
-	 * @param compteur type of AnalyticsCounter
+	 * Wrapper method of others methods in the class.
+	 * @param compteur type of AnalyticsCounter.
 	 */
 	public void process(AnalyticsCounter compteur) {
-		//recuperer liste qui vient du reader et appliquer comptage
-		//en fournissant le resultat de la liste (en parametre)
+		
 		List<String> symptom = this.reader.getSymptoms();
 		
 		TreeMap<String, Integer> map = compteur.comptage(symptom);

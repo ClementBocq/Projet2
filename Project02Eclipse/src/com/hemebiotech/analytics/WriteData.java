@@ -8,9 +8,7 @@ import java.util.TreeMap;
 
 
 /**
- * Write data in a TreeMap and create a file with the TreeMap content
- * 
- * @author Z
+ * Write data in a TreeMap and create a file with the TreeMap content.
  */
 public class WriteData implements IDataWriter {
 	
@@ -21,7 +19,8 @@ public class WriteData implements IDataWriter {
 	public WriteData() {	}
 	
 	/**
-	 * Write data of Map attribute in a file named "result.out".
+	 * {@inheritDoc}
+	 * Write data of TreeMap attribute in a file named "result.out".
 	 */
 	@Override
 	public void writeFile(TreeMap<String, Integer> data) {
