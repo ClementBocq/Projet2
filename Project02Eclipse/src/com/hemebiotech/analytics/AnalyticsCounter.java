@@ -2,48 +2,51 @@ package com.hemebiotech.analytics;
 
 
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.TreeMap;
 
 /**
- * Allow counting of elements in a collection by take data from
- * input object.
- * @author Z
+ * This class count the number of occurences of symptoms in a List
+ * and store the result into a file called "result.out".
  *
  */
 
 public class AnalyticsCounter {
 	
-	private List<String> data;
-	private HashSet<String> symptoms;
-	private TreeMap<String, Integer> output;
+	private ISymptomReader reader;
+	private IDataWriter writer;
 	
 	
 	/**
-	 * Call ReadDataFromFile object and put data in Hash.
+	 * This the constructor.
 	 * 
-	 * @param filepath full or partial
+	 * @param reader Contains the filepath and list of symtpoms.
+	 * @param writer IDataWriter object used to create ouput file.
 	 */
-	public AnalyticsCounter(String filepath) {
+	private AnalyticsCounter(ISymptomReader reader, IDataWriter writer) {
+	
+		
+		this.reader = reader;
+		this.writer = writer;
 		
 		
-		ISymptomReader reader = new ReadSymptomDataFromFile(filepath);
-		this.data = reader.getSymptoms();
-		this.symptoms = new HashSet<String>(this.data);
-		this.output = new TreeMap<String, Integer>();
 	}
+	
+	
 	
 	/**
 	 * put data which contain a list
 	 * of symptoms ordered by alphabetical order.
-	 * 
+	 * @param symptoms type of List<String>.
 	 */
-	public void comptage() {
+	private TreeMap<String, Integer> comptage(List<String> symptoms) {
 		
-		for(String symptom : this.symptoms) {
-			output.put(symptom, Collections.frequency(data, symptom));
+		TreeMap<String, Integer> output = new TreeMap<String, Integer>();
+		for(String symptom : symptoms) {
+			output.put(symptom, Collections.frequency(symptoms, symptom));
 		}
+		
+		return output;
 		
 		
 		
@@ -51,31 +54,34 @@ public class AnalyticsCounter {
 	
 	/**
 	 * Call WriteData object to create a file with processed data.
+	 * @param map TreeMap passed in parameter of attribute writer.
 	 */
-	public void writeInFile() {
+	private void writeInFile(TreeMap<String,Integer> map) {
 		
-		IDataWriter outputFile = new WriteData();
-		outputFile.writeFile(this.output);
+		
+		this.writer.writeFile(map);
 	}
 	
 	/**
-	 * display output content in the console.
+	 * display output content in the console for log.
+	 * @param map TreeMap to display in the console.
 	 */
-	public void afficheOutput( ) {
-		System.out.println(output.toString());
+	private void afficheOutput(TreeMap<String, Integer> map) {
+		System.out.println(map.toString());
 	}
 	
 	
 	
 	
 	/**
-	 * main method
-	 * @param args
-	 * @throws Exception
+	 * main method.
+	 * @param args not used but needed for the main method.
 	 */
-	public static void main(String args[]) throws Exception {
-				
-		AnalyticsCounter compteur = new AnalyticsCounter("symptoms.txt");
+	public static void main(String args[]) {
+		
+		ReadSymptomDataFromFile reader = new ReadSymptomDataFromFile("symptoms.txt");
+		WriteData writer = new WriteData();
+		AnalyticsCounter compteur = new AnalyticsCounter(reader, writer);
 		compteur.process(compteur);
 		
 		
@@ -83,12 +89,15 @@ public class AnalyticsCounter {
 	}
 
 	/**
-	 * Wrapper method of others methods in the class
-	 * @param compteur type of AnalyticsCounter
+	 * Wrapper method of others methods in the class.
+	 * @param compteur type of AnalyticsCounter.
 	 */
 	public void process(AnalyticsCounter compteur) {
-		compteur.comptage();
-		compteur.writeInFile();
-		compteur.afficheOutput();
+		
+		List<String> symptom = this.reader.getSymptoms();
+		
+		TreeMap<String, Integer> map = compteur.comptage(symptom);
+		compteur.writeInFile(map);
+		compteur.afficheOutput(map);
 	}
 }
